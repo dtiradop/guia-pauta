@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Guía paso a paso para configurar campañas de Google Ads por tipo.">
+<title>Guía Google Ads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#FBF8FC; --surface:#FFFFFF; --ink:#2A1B3A; --muted:#6B5A7A; --line:#EADFEF;
+  --plum:#422C59; --accent:#8844A6; --accent-soft:#F6ECF8; --pink:#F2C4E2; --lilac:#B98EBF; --lavender:#907ABF; --on-accent:#fff;
+  --hero-bg:#422C59; --hero-ink:#FFFFFF; --hero-muted:#E6D6EE;
+  --warn:#8844A6; --warn-soft:#FBE7F4;
+  --display:"Source Code Pro",ui-monospace,Menlo,monospace;
+  --body:"Poppins",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Source Code Pro",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#1A1224;--surface:#241933;--ink:#F3ECF7;--muted:#B9A8C8;--line:#3A2A4D;
+  --accent:#C79BDA;--accent-soft:#2F2142;--on-accent:#1A1224;--hero-bg:#2A1B3A;--warn:#F2C4E2;--warn-soft:#33213F;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#1A1224;--surface:#241933;--ink:#F3ECF7;--muted:#B9A8C8;--line:#3A2A4D;
+  --accent:#C79BDA;--accent-soft:#2F2142;--on-accent:#1A1224;--hero-bg:#2A1B3A;--warn:#F2C4E2;--warn-soft:#33213F;}
+*{box-sizing:border-box}
+body{margin:0}
+.back{display:inline-block;margin-top:24px;position:relative;z-index:1;text-decoration:none;font:500 13px var(--mono)}.back:hover{color:var(--pink)!important}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 var(--body);letter-spacing:-.01em;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.025em}
+h2 b,h1 b{font-weight:700}
+code{font-family:var(--mono);font-size:.82em;background:var(--accent-soft);padding:1px 5px;border-radius:4px;word-break:break-all}
+.label{font:500 13px/1 var(--mono);letter-spacing:.02em;color:var(--muted)}
+.band{background:var(--hero-bg);color:var(--hero-ink);margin-inline:-16px;padding-inline:16px;position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;right:-40px;top:40px;width:260px;height:330px;background:var(--accent);opacity:.9;clip-path:polygon(0 0,100% 72%,62% 72%,82% 100%,64% 100%,44% 76%,0 100%);pointer-events:none}
+.pattern{position:absolute;inset:0;font:500 22px/2.4 var(--mono);color:#fff;opacity:.05;word-spacing:18px;overflow:hidden;pointer-events:none;transform:rotate(-12deg) scale(1.3)}
+header.hero{padding-block:36px 48px;display:grid;gap:18px;position:relative;z-index:1}
+.brand{display:flex;flex-direction:column;line-height:1;width:max-content}
+.brand .d{font:400 17px var(--mono);letter-spacing:.12em}
+.brand .t{font:800 30px var(--body);letter-spacing:-.05em;display:flex;align-items:center;gap:1px;margin-top:-2px}
+.brand svg{width:26px;height:26px;margin-top:4px}
+.hero h1{font-size:clamp(32px,5.6vw,56px);font-weight:400;max-width:20ch;margin-top:28px}
+.hero h1 em{font-style:normal;font-weight:700;color:var(--pink)}
+.hero p{color:var(--hero-muted);max-width:60ch;margin:0;font-size:17px}
+.hero .label{color:var(--pink)}
+.hero .chip{background:transparent;border-color:rgba(255,255,255,.25);color:var(--hero-muted)}
+.back{color:var(--hero-muted)!important}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 12px/1 var(--mono);padding:7px 10px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:var(--surface)}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:32px}
+.tabs-inner{display:flex;gap:4px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+.tab{flex:none;border:1px solid transparent;background:none;color:var(--muted);font:600 15px var(--body);padding:8px 14px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink);background:var(--surface)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+.tab:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tab .new{font:500 10px var(--mono);margin-left:6px;padding:2px 5px;border-radius:4px;background:var(--warn-soft);color:var(--warn)}
+section.obj{display:grid;gap:40px}
+.obj-head{display:grid;gap:10px}
+.obj-head h2{font-size:clamp(28px,4.5vw,42px);font-weight:700}
+.obj-head p{margin:0;color:var(--muted);max-width:65ch}
+.funnel{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.funnel .chip{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.kpi{padding:18px;display:grid;gap:4px;border-left:1px solid var(--line)}
+.kpi:first-child{border-left:0}
+.kpi b{font:700 26px/1.1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.kpi span{color:var(--muted);font-size:14px}
+.block{display:grid;gap:18px}
+.block-title{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.block-title h3{font-size:22px;font-weight:700}
+.block-title .label{color:var(--accent);font-weight:700;font-size:15px}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.level{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px;align-content:start}
+.level h4{font-size:19px}
+.level dl{margin:0;display:grid;gap:10px}
+.level dt{font-weight:700;font-size:15px}
+.level dd{margin:0;color:var(--muted);font-size:15px}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:16px;padding-block:18px;border-bottom:1px solid var(--line)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 14px/1 var(--mono);color:var(--accent);padding-top:6px}
+ol.steps h4{font-size:17px;margin-bottom:4px}
+ol.steps p{margin:0;color:var(--muted)}
+ol.steps p strong{color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;align-content:start}
+.panel h4{font-size:18px}
+.panel ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.panel li{font-size:15px;color:var(--muted);padding-left:14px;position:relative}
+.panel li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.panel li b{color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:14px;padding:6px 10px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
+.alert{display:flex;gap:12px;padding:14px 16px;border-radius:10px;background:var(--warn-soft);color:var(--ink);font-size:15px}
+.alert::before{content:"!";flex:none;width:22px;height:22px;border-radius:50%;background:var(--warn);color:var(--bg);font:700 13px/22px var(--mono);text-align:center}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tip{border-top:3px solid var(--pink);padding-top:12px;display:grid;gap:6px}
+.tip h4{font-size:17px}
+.tip p{margin:0;color:var(--muted);font-size:15px}
+.check{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 20px}
+.check-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.progress{font:500 13px var(--mono);color:var(--muted)}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;width:140px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.check label{display:flex;gap:12px;align-items:flex-start;padding-block:12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:16px}
+.check label:last-child{border-bottom:0}
+.check input{accent-color:var(--accent);width:18px;height:18px;margin-top:3px;flex:none}
+.check input:checked+span{color:var(--muted);text-decoration:line-through}
+.reset{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:5px 10px;font:500 12px var(--mono);cursor:pointer}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+@media (max-width:820px){.levels,.tips{grid-template-columns:1fr}.two{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}.kpi:nth-child(3){border-left:0}.kpi:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:480px){ol.steps li{grid-template-columns:32px 1fr;gap:10px}.kpi b{font-size:23px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="band"><div class="pattern" aria-hidden="true"> &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; //</div><div class="wrap">
+  <a class="back" href="index.html">← Todas las guías</a>
+  <header class="hero" id="hero"></header>
+</div></div>
+<nav class="tabs"><div class="wrap tabs-inner" role="tablist" id="tabs"></div></nav>
+<main class="wrap" id="main"></main>
+<div class="wrap"><footer id="foot"></footer></div>
+
+<script>
+const DATA = {
+key:"guia-google-ads",
+eyebrow:"Google Ads · Guía de implementación 2026",
+headline:"Configura tu pauta en <em>Google Ads</em> sin margen de error",
+intro:"La configuración exacta para cada tipo de campaña: Búsqueda, Performance Max, Shopping, Display, YouTube y Demand Gen. Estructura, paso a paso, buenas prácticas y checklist antes de publicar.",
+chips:["6 tipos de campaña","Valores en COP","Checklist interactivo","Búsqueda · YouTube · Gmail · Discover"],
+footer:"Daniela Tirado Studio · Guía interna de pauta digital. Los montos en COP son referencias de arranque para Colombia; ajústalos según industria, margen y competencia. Google Ads cambia con frecuencia: valida los nombres exactos en la plataforma.",
+objectives:[
+{
+id:"busqueda",tab:"Búsqueda",kicker:"Intención alta · Ventas y leads",title:"Campaña de Búsqueda",
+desc:"Aparece cuando alguien busca exactamente lo que vendes. Es la campaña de mayor intención y la base de casi cualquier cuenta.",
+tags:["Objetivo: Ventas / Clientes potenciales","CPC","CTR","Nivel de calidad"],
+kpis:[["Métrica principal","CPA","Costo por conversión"],["CTR objetivo","+5%","En búsqueda de marca y genérica"],["Presupuesto mínimo","$30K","COP/día por campaña"],["Nivel de calidad","7+/10","Por palabra clave"]],
+alert:"<strong>Antes de lanzar:</strong> configura conversiones (etiqueta de Google o importación desde GA4) y vincula GA4. Sin conversiones, las pujas inteligentes no tienen qué optimizar.",
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Ventas o Clientes potenciales → Búsqueda"],["Redes","Solo red de Búsqueda (desmarca Display)"],["Ubicación","Personas en o habitualmente en tus ubicaciones"],["Puja","Maximizar clics o conversiones → luego CPA/ROAS objetivo"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Tema único","Un grupo por servicio o categoría de producto"],["Palabras clave","10–20 en concordancia de frase y exacta"],["Negativas","Lista compartida: gratis, empleo, curso, usado…"],["URL final","Landing específica del tema del grupo"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio + recursos",items:[["Anuncio adaptable","15 títulos (30 car.) y 4 descripciones (90 car.)"],["Palabra clave en títulos","En al menos 3 títulos"],["Recursos","Vínculos a sitios, textos destacados, fragmentos, llamada, imagen"],["Nivel del anuncio","Objetivo: Bueno o Excelente"]]}],
+steps:[
+["Configura conversiones","Herramientas → Conversiones. Crea compra, lead o llamada, o impórtalas desde GA4. Verifica con Tag Assistant."],
+["Investiga palabras clave","Planificador de palabras clave: volumen, competencia y CPC estimado en Colombia. Prioriza términos con intención de compra."],
+["Crea la campaña","<strong>Nueva campaña → Ventas o Clientes potenciales → Búsqueda</strong>. Desactiva red de Display y socios de búsqueda al inicio."],
+["Define ubicación e idioma","Ciudades o país, opción <em>Presencia</em>. Idioma: español (y otros si aplica)."],
+["Elige la estrategia de puja","Sin historial: <strong>Maximizar clics</strong> con CPC máximo o Maximizar conversiones. Con 30+ conversiones/mes: CPA o ROAS objetivo."],
+["Arma los grupos por tema","Un grupo por servicio. Frase y exacta. Añade negativas desde el día uno."],
+["Escribe el anuncio adaptable","15 títulos distintos: beneficio, precio, marca, CTA, prueba social. Fija solo si es necesario."],
+["Revisa términos de búsqueda","A los 3–7 días revisa el informe de términos, añade negativas y sube las que convierten como exacta."]],
+panels:[
+{title:"Tipos de concordancia",items:[["Exacta [zapatos mujer]:","máximo control, menor volumen."],["Frase \"zapatos mujer\":","equilibrio recomendado."],["Amplia:","solo con puja inteligente y conversiones sólidas."]]},
+{title:"Recursos que suben el CTR",tags:["Vínculos a sitios","Textos destacados","Fragmentos estructurados","Llamada","Imagen","Precio","Promoción","Ubicación"]}],
+tips:[["Separa marca y genérica","Tu marca en una campaña aparte, con CPC bajo y CTR alto, para no inflar métricas."],["La landing define el costo","Relevancia y experiencia en la página suben el nivel de calidad y bajan el CPC."],["Negativas cada semana","El informe de términos de búsqueda es la tarea más rentable de la cuenta."]],
+checklist:["Conversiones configuradas y verificadas","GA4 vinculado a Google Ads","Solo red de Búsqueda activa","Ubicación con opción Presencia","Grupos de anuncios por tema","Lista de palabras clave negativas aplicada","Anuncio con 15 títulos y nivel Bueno o Excelente","Recursos: vínculos, textos destacados, llamada"]
+},
+{
+id:"pmax",tab:"Performance Max",kicker:"Todo el inventario de Google",title:"Performance Max",
+desc:"Una sola campaña que muestra anuncios en Búsqueda, Shopping, YouTube, Display, Gmail, Discover y Maps. La IA de Google decide dónde y a quién; tú le das señales y recursos de calidad.",
+tags:["Objetivo: Ventas / Clientes potenciales","ROAS","CPA","Automatización"],
+kpis:[["Métrica principal","ROAS","O CPA para leads"],["Conversiones","30+","Al mes para estabilizar"],["Presupuesto mínimo","$60K","COP/día por campaña"],["Aprendizaje","~2 sem.","Sin cambios grandes"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Ventas o Clientes potenciales → Performance Max"],["Merchant Center","Vincúlalo para e-commerce (feed de productos)"],["Puja","Maximizar valor de conversión con ROAS objetivo opcional"],["Ajustes","Exclusiones de marca y URL final ampliada según caso"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de recursos",items:[["Tema","Uno por categoría o audiencia principal"],["Señales de audiencia","Listas de clientes, visitantes, búsquedas personalizadas"],["Temas de búsqueda","Hasta 50 términos que orientan la intención"],["Grupo de fichas","Filtra los productos de cada grupo"]]},
+{lvl:"Nivel 3 · Creativo",name:"Recursos",items:[["Imágenes","Horizontales 1.91:1, cuadradas 1:1, verticales 4:5"],["Logos","Cuadrado 1:1 y horizontal 4:1"],["Videos","Horizontal, cuadrado y vertical (si no, Google los genera)"],["Textos","5 títulos cortos, 5 largos, 5 descripciones"]]}],
+steps:[
+["Verifica conversiones con valor","Compras con valor dinámico o leads con valores asignados. PMax optimiza sobre esto."],
+["Vincula Merchant Center","Para tiendas: feed aprobado y sin errores. En Shopify, usa la app Google & YouTube."],
+["Crea la campaña","<strong>Nueva campaña → Ventas → Performance Max</strong>. Selecciona la fuente del feed."],
+["Configura puja y presupuesto","Empieza con Maximizar valor de conversión sin objetivo. Agrega ROAS objetivo tras 2–4 semanas."],
+["Arma los grupos de recursos","Uno por categoría. Imágenes de producto y de estilo de vida, videos propios y textos con beneficios."],
+["Añade señales de audiencia","Lista de clientes, visitantes del sitio y segmentos personalizados con búsquedas de tu nicho."],
+["Excluye lo que no quieres","Exclusiones de marca, palabras negativas a nivel de cuenta y URL que no deben recibir tráfico."],
+["Revisa el informe de estadísticas","Categorías de búsqueda, rendimiento por recurso y canal. Reemplaza recursos con rendimiento bajo."]],
+panels:[
+{title:"Dónde se muestran los anuncios",tags:["Búsqueda","Shopping","YouTube","Display","Gmail","Discover","Maps"]},
+{title:"Cuándo usar PMax",items:[["Sí:","e-commerce con feed y 30+ conversiones/mes."],["Sí:","complemento de Búsqueda para ampliar alcance."],["Con cuidado:","cuentas nuevas sin datos de conversión."],["No:","si necesitas control total de palabras clave."]]}],
+tips:[["Tus videos, no los automáticos","Los videos generados por Google suelen rendir peor. Sube al menos uno vertical propio."],["Protege la marca","Excluye tu marca o monitoréala para que PMax no se lleve crédito de búsquedas que ya ganabas."],["Paciencia con el aprendizaje","Evita cambiar presupuesto más de 20% o recursos en las primeras 2 semanas."]],
+checklist:["Conversiones con valor configuradas","Merchant Center vinculado y feed sin errores","Grupos de recursos por categoría","Imágenes en 1.91:1, 1:1 y 4:5","Al menos un video propio vertical","Señales de audiencia añadidas","Exclusiones de marca y negativas revisadas","Presupuesto mínimo de $60.000 COP/día"]
+},
+{
+id:"shopping",tab:"Shopping",kicker:"E-commerce · Intención alta",title:"Shopping estándar",
+desc:"Muestra tu producto con foto, precio y tienda en los resultados de Google. Da más control que Performance Max sobre qué productos empujar.",
+tags:["Objetivo: Ventas","ROAS","CPC","Merchant Center"],
+kpis:[["Métrica principal","ROAS","Retorno por producto"],["CTR objetivo","+1%","En fichas de producto"],["Presupuesto mínimo","$30K","COP/día"],["Feed aprobado","100%","Productos sin errores"]],
+alert:"<strong>Todo depende del feed.</strong> Títulos, imágenes, precios y disponibilidad en Merchant Center son tu segmentación: Google no usa palabras clave en Shopping.",
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Ventas → Shopping"],["Merchant Center","Cuenta y país de venta"],["Prioridad","Alta, media o baja entre campañas"],["Puja","CPC manual o Maximizar clics → ROAS objetivo"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de productos",items:[["Subdivisión","Por categoría, marca, tipo o etiqueta personalizada"],["Etiquetas","Margen alto, más vendidos, temporada"],["Pujas","Diferentes por grupo según margen"],["Negativas","Excluye búsquedas irrelevantes"]]},
+{lvl:"Nivel 3 · Creativo",name:"Feed de productos",items:[["Título","Marca + producto + atributo clave (color, talla, material)"],["Imagen","Fondo blanco o limpio, sin texto promocional"],["Precio","Igual en feed y en la página"],["Atributos","GTIN o identificador, categoría, estado, envío"]]}],
+steps:[
+["Configura Merchant Center","Verifica y reclama el sitio, define envíos y devoluciones."],
+["Sube el feed","App Google & YouTube en Shopify, plugin en WooCommerce o hoja de Google."],
+["Corrige errores del diagnóstico","Resuelve advertencias de precio, imagen y disponibilidad hasta tener el 100% aprobado."],
+["Optimiza títulos","Palabras que la gente busca al inicio: “Botas de cuero mujer negras talla 37”."],
+["Crea la campaña","<strong>Nueva campaña → Ventas → Shopping</strong>. Elige Merchant Center y país."],
+["Subdivide grupos de productos","Por categoría o etiqueta personalizada para pujar distinto según margen."],
+["Añade negativas","Tras la primera semana, revisa los términos de búsqueda y excluye los irrelevantes."],
+["Ajusta pujas por rendimiento","Sube en productos con ROAS alto, baja o excluye los que gastan sin vender."]],
+panels:[
+{title:"Etiquetas personalizadas útiles",tags:["Margen alto","Más vendidos","Nuevos","Liquidación","Temporada","Ticket alto"]},
+{title:"Errores comunes del feed",items:[["Precio distinto:","feed y página no coinciden."],["Imagen con texto:","promociones o marcas de agua."],["Sin identificador:","falta GTIN o marca."],["Envío no configurado:","para el país de venta."]]}],
+tips:[["El título es tu palabra clave","Reescribe títulos con el lenguaje de búsqueda del cliente, no con el nombre interno."],["Segmenta por margen","No todos los productos merecen la misma puja. Etiqueta por margen."],["Actualiza el feed a diario","Stock y precio desactualizados causan rechazos y mala experiencia."]],
+checklist:["Merchant Center verificado y reclamado","Envíos y devoluciones configurados","Feed 100% aprobado","Títulos optimizados con atributos clave","Imágenes limpias sin texto promocional","Grupos de productos subdivididos","Etiquetas personalizadas asignadas","Negativas iniciales aplicadas"]
+},
+{
+id:"display",tab:"Display",kicker:"Remarketing y alcance",title:"Red de Display",
+desc:"Anuncios visuales en millones de sitios, apps y Gmail. Funciona mejor para remarketing y para reconocimiento con presupuesto bajo.",
+tags:["Objetivo: Reconocimiento / Remarketing","CPM","Frecuencia","Alcance"],
+kpis:[["Métrica principal","CPM","O CPA en remarketing"],["CTR esperado","0,3–1%","Normal en Display"],["Presupuesto mínimo","$15K","COP/día"],["Frecuencia","3–5×","Por semana"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Reconocimiento y consideración, o Ventas para remarketing"],["Tipo","Display"],["Puja","CPM visible, Maximizar conversiones o CPA objetivo"],["Frecuencia","Límite por usuario"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Audiencias","Remarketing, segmentos personalizados, afinidad, en el mercado"],["Segmentación optimizada","Desactívala en remarketing estricto"],["Exclusiones","Apps de juegos, contenido sensible, sitios de bajo rendimiento"],["Ubicaciones","Automáticas o gestionadas"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio display adaptable",items:[["Imágenes","1.91:1 y 1:1, hasta 15"],["Logos","1:1 y 4:1"],["Títulos","5 cortos + 1 largo"],["Descripciones","Hasta 5, con beneficio y CTA"]]}],
+steps:[
+["Crea listas de remarketing","En Gestor de audiencias, desde GA4 o la etiqueta de Google: visitantes 30 días, carrito 7 días."],
+["Crea la campaña","<strong>Nueva campaña → objetivo → Display</strong>."],
+["Define audiencias","Remarketing para conversión; segmentos personalizados y en el mercado para prospección."],
+["Excluye ubicaciones de bajo valor","Categorías de apps de juegos móviles y contenido sensible."],
+["Configura frecuencia","Límite de 3–5 impresiones por semana por usuario."],
+["Sube el anuncio adaptable","Varias imágenes limpias, logo y textos con beneficio."],
+["Revisa ubicaciones a la semana","Informe de ubicaciones: excluye sitios con muchos clics y cero conversiones."],
+["Optimiza por conversiones","Con datos suficientes, cambia a CPA objetivo en remarketing."]],
+panels:[
+{title:"Tipos de audiencia",tags:["Remarketing","Segmentos personalizados","En el mercado","Afinidad","Listas de clientes","Similares (vía optimizada)"]},
+{title:"Cuándo usar Display",items:[["Sí:","remarketing de visitantes y carrito."],["Sí:","reconocimiento local con presupuesto bajo."],["Con cuidado:","prospección fría para ventas directas."]]}],
+tips:[["Remarketing primero","Es donde Display rinde mejor por peso invertido."],["Limpia ubicaciones","Revisa y excluye ubicaciones de apps que generan clics accidentales."],["Diseño simple","Producto, beneficio y logo. El texto dentro de la imagen debe ser mínimo."]],
+checklist:["Listas de remarketing con tamaño suficiente","Objetivo y tipo Display seleccionados","Audiencias definidas por etapa","Exclusiones de contenido y apps aplicadas","Límite de frecuencia configurado","Anuncio adaptable con imágenes 1.91:1 y 1:1","Logo en 1:1 y 4:1","Revisión semanal de ubicaciones agendada"]
+},
+{
+id:"youtube",tab:"YouTube",kicker:"Video · Todo el embudo",title:"Campañas de video en YouTube",
+desc:"Anuncios en YouTube para alcance, consideración o ventas. Formatos saltables, no saltables, bumper de 6 s y Shorts.",
+tags:["Objetivo: Reconocimiento / Consideración / Ventas","CPV","Vistas","Tasa de visualización"],
+kpis:[["Métrica principal","CPV","Costo por vista"],["Tasa de vista","+25%","En in-stream saltable"],["Presupuesto mínimo","$25K","COP/día"],["Duración","15–30 s","Para saltables"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Reconocimiento, Consideración o Ventas"],["Subtipo","Alcance eficiente, vistas, bumper, secuencia de anuncios"],["Puja","CPM objetivo, CPV o CPA objetivo"],["Canal","Canal de YouTube vinculado"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Audiencias","Segmentos personalizados, afinidad, remarketing de YouTube"],["Contenido","Palabras clave, temas o canales específicos"],["Exclusiones","Contenido infantil y sensible"],["Dispositivos","Todos; revisa TV conectada"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio de video",items:[["Gancho","Marca y promesa en los primeros 5 s"],["Formatos","16:9 para in-stream, 9:16 para Shorts"],["CTA","Botón y título claros"],["Subtítulos","Muchos ven sin sonido"]]}],
+steps:[
+["Sube el video a YouTube","Como no listado si no quieres que aparezca en el canal."],
+["Vincula el canal","Herramientas → Cuentas vinculadas → YouTube."],
+["Crea la campaña","<strong>Nueva campaña → objetivo → Video</strong>. Elige subtipo."],
+["Define la puja","Alcance: CPM objetivo. Consideración: CPV. Ventas: CPA objetivo."],
+["Segmenta la audiencia","Segmentos personalizados con búsquedas en Google del nicho y remarketing de espectadores."],
+["Aplica exclusiones","Contenido para niños, videos embebidos y temas sensibles."],
+["Crea el anuncio","Gancho en 5 s, marca visible, subtítulos y CTA. Versión vertical para Shorts."],
+["Crea listas de espectadores","Para retargeting en Búsqueda, Display o Demand Gen."]],
+panels:[
+{title:"Formatos de video",items:[["In-stream saltable:","se salta a los 5 s; ideal consideración."],["No saltable:","15 s; reconocimiento."],["Bumper:","6 s no saltable; recordación."],["Shorts:","vertical 9:16, alcance móvil."]]},
+{title:"Estructura del guion (ABCD)",items:[["Atención:","gancho visual inmediato."],["Branding:","marca en los primeros 5 s."],["Conexión:","beneficio o historia."],["Dirección:","CTA claro al final."]]}],
+tips:[["Los primeros 5 segundos","Si no enganchas antes del botón de saltar, pierdes a la mayoría."],["Crea para sin sonido","Subtítulos y texto en pantalla hacen el trabajo cuando el audio está apagado."],["Usa secuencias","Cuenta la historia en 2–3 videos seguidos a la misma persona."]],
+checklist:["Video subido y canal vinculado","Objetivo y subtipo correctos","Puja alineada al objetivo","Segmentos personalizados creados","Exclusiones de contenido aplicadas","Marca y promesa en los primeros 5 s","Subtítulos y versión vertical","Lista de espectadores para remarketing"]
+},
+{
+id:"demandgen",tab:"Demand Gen",kicker:"Social dentro de Google",title:"Demand Gen",
+desc:"Anuncios visuales en YouTube (incluido Shorts), Discover y Gmail. Es lo más parecido a Meta Ads dentro de Google: creatividades tipo feed y audiencias similares.",
+tags:["Objetivo: Consideración / Ventas","CPC","CPA","Audiencias similares"],
+kpis:[["Métrica principal","CPA","Costo por conversión"],["CTR objetivo","+0,5%","Según formato"],["Presupuesto mínimo","$40K","COP/día"],["Conversiones","50+","En 35 días para estabilizar"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Ventas, Clientes potenciales o Tráfico → Demand Gen"],["Puja","Maximizar clics o conversiones → CPA objetivo"],["Canales","Todos o selección (YouTube, Discover, Gmail, Display)"],["Nombre","[Marca] | DemandGen | Oct-2026"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Audiencias","Similares (lookalike) de clientes, segmentos personalizados"],["Remarketing","Visitantes y espectadores de YouTube"],["Ubicaciones","Por grupo, puedes elegir canales"],["Idioma y ubicación","Nivel de grupo de anuncios"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio",items:[["Formatos","Imagen, carrusel, video y producto (con feed)"],["Imágenes","1.91:1, 1:1 y 4:5"],["Textos","Hasta 5 títulos y 5 descripciones"],["CTA","Comprar, Más información, Registrarse"]]}],
+steps:[
+["Prepara audiencias","Lista de clientes (mín. 100 coincidencias) para crear segmentos similares."],
+["Crea la campaña","<strong>Nueva campaña → objetivo → Demand Gen</strong>."],
+["Elige la puja","Maximizar conversiones; añade CPA objetivo tras ~50 conversiones."],
+["Configura grupos por audiencia","Uno para similares, uno para remarketing, uno para segmentos personalizados."],
+["Elige canales","Empieza con todos; separa YouTube Shorts si tienes video vertical fuerte."],
+["Sube creatividades tipo feed","Las mismas piezas que funcionan en Meta: estilo de vida, UGC, carrusel."],
+["Conecta el feed","Si eres e-commerce, vincula Merchant Center para anuncios de producto."],
+["Evalúa a las 2 semanas","Demand Gen necesita tiempo; compara por grupo y canal."]],
+panels:[
+{title:"Dónde aparece",tags:["YouTube in-stream","YouTube Shorts","YouTube Inicio","Discover","Gmail","Display (Google)"]},
+{title:"Demand Gen vs. PMax",items:[["Demand Gen:","control de audiencias y creatividad, sin Búsqueda."],["PMax:","todo el inventario, más automático."],["Juntas:","Demand Gen genera demanda, PMax y Búsqueda la capturan."]]}],
+tips:[["Recicla lo que gana en Meta","Las creatividades ganadoras en Instagram suelen funcionar en Discover y Shorts."],["Similares con buenas semillas","La calidad de la lista de clientes define la calidad del segmento similar."],["Mide con conversiones de vista","Incluye conversiones post-vista para valorar el impacto real de YouTube."]],
+checklist:["Objetivo y tipo Demand Gen seleccionados","Lista de clientes cargada para similares","Grupos separados por audiencia","Creatividades en 1.91:1, 1:1 y 4:5","Video vertical para Shorts","Feed de Merchant Center vinculado (si aplica)","Puja inicial en Maximizar conversiones","Revisión a las 2 semanas agendada"]
+}]
+}
+;
+const $ = s => document.querySelector(s);
+const esc = s => s; // content is authored, allows inline <strong>/<code>
+const store = { get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}} };
+
+$('#hero').innerHTML = `<div class="brand" aria-label="Daniela Tirado"><span class="d">daniela</span><span class="t">tirad<svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="currentColor"/><path d="M10 7v11l3-3 2 4.5 2-1-2-4.3h4z" fill="var(--hero-bg)"/></svg></span></div>
+  <span class="label">${DATA.eyebrow}</span>
+  <h1>${DATA.headline}</h1>
+  <p>${DATA.intro}</p>
+  <div class="hero-meta">${DATA.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`;
+$('#foot').innerHTML = DATA.footer;
+
+const tabs = $('#tabs'), main = $('#main');
+DATA.objectives.forEach((o,i)=>{
+  const b=document.createElement('button');
+  b.className='tab';b.role='tab';b.id='tab-'+o.id;b.setAttribute('aria-controls',o.id);
+  b.innerHTML=o.tab+(o.isNew?'<span class="new">NUEVO</span>':'');
+  b.onclick=()=>show(o.id,true);
+  tabs.appendChild(b);
+  main.insertAdjacentHTML('beforeend',render(o));
+});
+
+function render(o){
+  let n=0; const sec=(t,html)=>`<div class="block"><div class="block-title"><span class="label">[${String(++n).padStart(2,'0')}]</span><h3>${t}</h3></div>${html}</div>`;
+  let h=`<section class="obj" id="${o.id}" role="tabpanel" aria-labelledby="tab-${o.id}" hidden>
+  <div class="obj-head"><span class="label">${o.kicker}</span><h2>${o.title}</h2><p>${o.desc}</p>
+  <div class="funnel">${o.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div></div>
+  <div class="kpis">${o.kpis.map(k=>`<div class="kpi"><span class="label">${k[0]}</span><b>${k[1]}</b><span>${k[2]}</span></div>`).join('')}</div>`;
+  if(o.alert) h+=`<div class="alert"><div>${o.alert}</div></div>`;
+  h+=sec(o.levelsTitle||'Estructura de la campaña',`<div class="levels">${o.levels.map(l=>`<div class="level"><span class="label">${l.lvl}</span><h4>${l.name}</h4><dl>${l.items.map(i=>`<div><dt>${i[0]}</dt><dd>${i[1]}</dd></div>`).join('')}</dl></div>`).join('')}</div>`);
+  (o.extra||[]).forEach(x=>{ h+=sec(x.title, x.html); });
+  h+=sec('Paso a paso',`<ol class="steps">${o.steps.map(s=>`<li><div><h4>${s[0]}</h4><p>${s[1]}</p></div></li>`).join('')}</ol>`);
+  if(o.panels) h+=sec(o.panelsTitle||'Referencia rápida',`<div class="two">${o.panels.map(p=>`<div class="panel"><h4>${p.title}</h4>${p.tags?`<div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}${p.items?`<ul>${p.items.map(i=>`<li><b>${i[0]}</b> ${i[1]}</li>`).join('')}</ul>`:''}${p.note?`<p style="margin:0;font-size:15px;color:var(--muted)">${p.note}</p>`:''}</div>`).join('')}</div>`);
+  h+=sec('Buenas prácticas',`<div class="tips">${o.tips.map(t=>`<div class="tip"><h4>${t[0]}</h4><p>${t[1]}</p></div>`).join('')}</div>`);
+  h+=sec('Checklist antes de publicar',`<div class="check" data-obj="${o.id}"><div class="check-head" style="padding-block:12px;border-bottom:1px solid var(--line)"><span class="progress"></span><div style="display:flex;gap:10px;align-items:center"><div class="bar"><i></i></div><button class="reset" type="button">Reiniciar</button></div></div>${o.checklist.map((c,i)=>`<label><input type="checkbox" id="${o.id}-c${i}"><span>${c}</span></label>`).join('')}</div>`);
+  return h+'</section>';
+}
+
+const KEY=DATA.key;
+const saved=store.get(KEY)||{};
+document.querySelectorAll('.check').forEach(box=>{
+  const id=box.dataset.obj, inputs=[...box.querySelectorAll('input')];
+  const upd=()=>{const d=inputs.filter(i=>i.checked).length;box.querySelector('.progress').textContent=`${d} de ${inputs.length} listos`;box.querySelector('.bar i').style.width=(d/inputs.length*100)+'%';saved[id]=inputs.map(i=>i.checked);store.set(KEY,saved);};
+  (saved[id]||[]).forEach((v,i)=>{if(inputs[i])inputs[i].checked=v});
+  inputs.forEach(i=>i.addEventListener('change',upd));
+  box.querySelector('.reset').onclick=()=>{inputs.forEach(i=>i.checked=false);upd();};
+  upd();
+});
+
+function show(id,scroll){
+  DATA.objectives.forEach(o=>{$('#'+o.id).hidden=o.id!==id;$('#tab-'+o.id).setAttribute('aria-selected',o.id===id)});
+  store.set(KEY+'-tab',id);
+  if(scroll) window.scrollTo({top:$('#main').offsetTop-70,behavior:'smooth'});
+}
+const hash=location.hash.slice(1);
+show(DATA.objectives.some(o=>o.id===hash)?hash:(store.get(KEY+'-tab')||DATA.objectives[0].id));
+</script>
+
+</body>
+</html>
