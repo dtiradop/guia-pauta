@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Guía paso a paso para configurar campañas de TikTok Ads por objetivo.">
+<title>Guía TikTok Ads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&family=Poppins:wght@400;500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#FBF8FC; --surface:#FFFFFF; --ink:#2A1B3A; --muted:#6B5A7A; --line:#EADFEF;
+  --plum:#422C59; --accent:#8844A6; --accent-soft:#F6ECF8; --pink:#F2C4E2; --lilac:#B98EBF; --lavender:#907ABF; --on-accent:#fff;
+  --hero-bg:#422C59; --hero-ink:#FFFFFF; --hero-muted:#E6D6EE;
+  --warn:#8844A6; --warn-soft:#FBE7F4;
+  --display:"Source Code Pro",ui-monospace,Menlo,monospace;
+  --body:"Poppins",ui-sans-serif,system-ui,sans-serif;
+  --mono:"Source Code Pro",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#1A1224;--surface:#241933;--ink:#F3ECF7;--muted:#B9A8C8;--line:#3A2A4D;
+  --accent:#C79BDA;--accent-soft:#2F2142;--on-accent:#1A1224;--hero-bg:#2A1B3A;--warn:#F2C4E2;--warn-soft:#33213F;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#1A1224;--surface:#241933;--ink:#F3ECF7;--muted:#B9A8C8;--line:#3A2A4D;
+  --accent:#C79BDA;--accent-soft:#2F2142;--on-accent:#1A1224;--hero-bg:#2A1B3A;--warn:#F2C4E2;--warn-soft:#33213F;}
+*{box-sizing:border-box}
+body{margin:0}
+.back{display:inline-block;margin-top:24px;position:relative;z-index:1;text-decoration:none;font:500 13px var(--mono)}.back:hover{color:var(--pink)!important}
+body{background:var(--bg);color:var(--ink);font:16px/1.7 var(--body);letter-spacing:-.01em;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;letter-spacing:-.025em}
+h2 b,h1 b{font-weight:700}
+code{font-family:var(--mono);font-size:.82em;background:var(--accent-soft);padding:1px 5px;border-radius:4px;word-break:break-all}
+.label{font:500 13px/1 var(--mono);letter-spacing:.02em;color:var(--muted)}
+.band{background:var(--hero-bg);color:var(--hero-ink);margin-inline:-16px;padding-inline:16px;position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;right:-40px;top:40px;width:260px;height:330px;background:var(--accent);opacity:.9;clip-path:polygon(0 0,100% 72%,62% 72%,82% 100%,64% 100%,44% 76%,0 100%);pointer-events:none}
+.pattern{position:absolute;inset:0;font:500 22px/2.4 var(--mono);color:#fff;opacity:.05;word-spacing:18px;overflow:hidden;pointer-events:none;transform:rotate(-12deg) scale(1.3)}
+header.hero{padding-block:36px 48px;display:grid;gap:18px;position:relative;z-index:1}
+.brand{display:flex;flex-direction:column;line-height:1;width:max-content}
+.brand .d{font:400 17px var(--mono);letter-spacing:.12em}
+.brand .t{font:800 30px var(--body);letter-spacing:-.05em;display:flex;align-items:center;gap:1px;margin-top:-2px}
+.brand svg{width:26px;height:26px;margin-top:4px}
+.hero h1{font-size:clamp(32px,5.6vw,56px);font-weight:400;max-width:20ch;margin-top:28px}
+.hero h1 em{font-style:normal;font-weight:700;color:var(--pink)}
+.hero p{color:var(--hero-muted);max-width:60ch;margin:0;font-size:17px}
+.hero .label{color:var(--pink)}
+.hero .chip{background:transparent;border-color:rgba(255,255,255,.25);color:var(--hero-muted)}
+.back{color:var(--hero-muted)!important}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:500 12px/1 var(--mono);padding:7px 10px;border:1px solid var(--line);border-radius:99px;color:var(--muted);background:var(--surface)}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-bottom:32px}
+.tabs-inner{display:flex;flex-wrap:wrap;gap:4px;padding-block:10px;scrollbar-width:none}
+.tab{flex:none;border:1px solid transparent;background:none;color:var(--muted);font:600 15px var(--body);padding:8px 14px;border-radius:8px;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink);background:var(--surface)}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--on-accent)}
+.tab:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tab .new{font:500 10px var(--mono);margin-left:6px;padding:2px 5px;border-radius:4px;background:var(--warn-soft);color:var(--warn)}
+[hidden]{display:none!important}
+section.obj{display:grid;gap:40px}
+.obj-head{display:grid;gap:10px}
+.obj-head h2{font-size:clamp(28px,4.5vw,42px);font-weight:700}
+.obj-head p{margin:0;color:var(--muted);max-width:65ch}
+.funnel{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.funnel .chip{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:12px;background:var(--surface);overflow:hidden}
+.kpi{padding:18px;display:grid;gap:4px;border-left:1px solid var(--line)}
+.kpi:first-child{border-left:0}
+.kpi b{font:700 26px/1.1 var(--display);letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.kpi span{color:var(--muted);font-size:14px}
+.block{display:grid;gap:18px}
+.block-title{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.block-title h3{font-size:22px;font-weight:700}
+.block-title .label{color:var(--accent);font-weight:700;font-size:15px}
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.level{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px;align-content:start}
+.level h4{font-size:19px}
+.level dl{margin:0;display:grid;gap:10px}
+.level dt{font-weight:700;font-size:15px}
+.level dd{margin:0;color:var(--muted);font-size:15px}
+ol.steps{list-style:none;margin:0;padding:0;display:grid;gap:0;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:48px 1fr;gap:16px;padding-block:18px;border-bottom:1px solid var(--line)}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{content:counter(s,decimal-leading-zero);font:500 14px/1 var(--mono);color:var(--accent);padding-top:6px}
+ol.steps h4{font-size:17px;margin-bottom:4px}
+ol.steps p{margin:0;color:var(--muted)}
+ol.steps p strong{color:var(--ink)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:12px;align-content:start}
+.panel h4{font-size:18px}
+.panel ul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.panel li{font-size:15px;color:var(--muted);padding-left:14px;position:relative}
+.panel li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:2px;background:var(--accent)}
+.panel li b{color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-size:14px;padding:6px 10px;border-radius:6px;background:var(--accent-soft);color:var(--ink)}
+.alert{display:flex;gap:12px;padding:14px 16px;border-radius:10px;background:var(--warn-soft);color:var(--ink);font-size:15px}
+.alert::before{content:"!";flex:none;width:22px;height:22px;border-radius:50%;background:var(--warn);color:var(--bg);font:700 13px/22px var(--mono);text-align:center}
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tip{border-top:3px solid var(--pink);padding-top:12px;display:grid;gap:6px}
+.tip h4{font-size:17px}
+.tip p{margin:0;color:var(--muted);font-size:15px}
+.check{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 20px}
+.check-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.progress{font:500 13px var(--mono);color:var(--muted)}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;width:140px}
+.bar i{display:block;height:100%;background:var(--accent);transition:width .25s}
+.check label{display:flex;gap:12px;align-items:flex-start;padding-block:12px;border-bottom:1px solid var(--line);cursor:pointer;font-size:16px}
+.check label:last-child{border-bottom:0}
+.check input{accent-color:var(--accent);width:18px;height:18px;margin-top:3px;flex:none}
+.check input:checked+span{color:var(--muted);text-decoration:line-through}
+.reset{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:5px 10px;font:500 12px var(--mono);cursor:pointer}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+@media (max-width:820px){.tabs-inner{flex-wrap:nowrap;overflow-x:auto}.levels,.tips{grid-template-columns:1fr}.two{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}.kpi:nth-child(3){border-left:0}.kpi:nth-child(n+3){border-top:1px solid var(--line)}}
+@media (max-width:480px){ol.steps li{grid-template-columns:32px 1fr;gap:10px}.kpi b{font-size:23px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="band"><div class="pattern" aria-hidden="true"> &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; // &lt;/&gt; {} # @ ; &lt;a&gt; &lt;p&gt; &amp; //</div><div class="wrap">
+  <a class="back" href="index.html">← Todas las guías</a>
+  <header class="hero" id="hero"></header>
+</div></div>
+<nav class="tabs"><div class="wrap tabs-inner" role="tablist" id="tabs"></div></nav>
+<main class="wrap" id="main"></main>
+<div class="wrap"><footer id="foot"></footer></div>
+
+<script>
+const DATA = {
+key:"guia-tiktok-ads",
+eyebrow:"TikTok Ads Manager · Guía de implementación 2026",
+headline:"Configura tu pauta en <em>TikTok Ads</em> sin margen de error",
+intro:"La configuración exacta para cada objetivo: Alcance, Tráfico, Reproducciones de video, Interacción con la comunidad, Clientes potenciales y Ventas. Estructura, paso a paso, buenas prácticas y checklist antes de publicar.",
+chips:["6 objetivos","Valores en COP","Checklist interactivo","TikTok · Pangle"],
+footer:"Daniela Tirado Studio · Guía interna de pauta digital. Los montos en COP son referencias de arranque para Colombia; ajústalos según industria, margen y competencia. TikTok cambia sus opciones con frecuencia: valida los nombres exactos en el Administrador de anuncios.",
+objectives:[
+{
+id:"alcance",tab:"Alcance",kicker:"Parte alta del embudo",title:"Alcance",
+desc:"Muestra tu anuncio al mayor número de personas al menor costo. Úsalo para lanzar una marca o un producto y para alimentar audiencias de retargeting.",
+tags:["Embudo: TOFU","CPM","Alcance","Frecuencia"],
+kpis:[["Métrica principal","CPM","Costo por mil impresiones"],["Frecuencia","1–3×","Por persona cada 7 días"],["Presupuesto mínimo","$20K","COP/día por grupo (verifica el mínimo en tu cuenta)"],["Audiencia","+2M","Personas para buen alcance"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Alcance"],["Presupuesto","Diario o total; optimización de presupuesto de campaña opcional"],["Nombre","[Marca] | Alcance | Oct-2026"],["Prueba A/B","Opcional: creatividades o audiencias"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Ubicación","Ubicación automática o solo TikTok"],["Audiencia","Amplia: país, edad, idioma; intereses solo si es necesario"],["Frecuencia","Límite, por ejemplo 3 impresiones cada 7 días"],["Puja","Costo más bajo"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio",items:[["Formato","Video vertical 9:16, 9–15 s"],["Gancho","Marca o promesa en los primeros 2 s"],["Identidad","Cuenta de TikTok vinculada (Spark Ads si es contenido orgánico)"],["Sonido","Música comercial de la biblioteca de TikTok"]]}],
+steps:[
+["Crea la campaña","En el Administrador de anuncios, <strong>Crear → Alcance</strong>. Ponle nombre con marca, objetivo y fecha."],
+["Define el presupuesto","Diario para control o total para una fecha fija. Revisa el mínimo que pide tu cuenta."],
+["Configura la audiencia","Amplia: país o ciudades, edad e idioma. TikTok encuentra mejor a la gente con poca restricción."],
+["Elige ubicaciones","Automática o solo TikTok si no quieres aparecer en Pangle."],
+["Limita la frecuencia","Configura un tope de impresiones por persona para evitar saturación."],
+["Sube el video","Vertical 9:16, mínimo 720 px de ancho, con marca en los primeros 2 segundos."],
+["Usa Spark Ads si tienes orgánico","Pauta una publicación que ya funcionó en tu cuenta; conserva likes y comentarios."],
+["Publica y evalúa a las 48 h","Mide CPM, alcance y frecuencia. Renueva el video si la frecuencia sube y el CTR cae."]],
+panels:[
+{title:"Formatos",tags:["In-Feed 9:16","Spark Ads","Carrusel de imágenes","TopView (reserva)","Pangle"]},
+{title:"Especificaciones de video",items:[["Proporción:","9:16 (también acepta 1:1 y 16:9)."],["Duración:","9–15 s recomendado; hasta 60 s."],["Zona segura:","deja libres los bordes donde van los botones y el texto."],["Sonido:","siempre activo; TikTok se ve con audio."]]}],
+tips:[["Parece TikTok, no anuncio","Videos grabados con celular, personas reales y lenguaje de la plataforma rinden más que piezas pulidas."],["Gancho en 2 segundos","El usuario decide rápido. Abre con movimiento, pregunta o resultado."],["Renueva cada 7–10 días","La fatiga creativa en TikTok llega antes que en Meta."]],
+checklist:["Objetivo Alcance seleccionado","Presupuesto igual o mayor al mínimo de la cuenta","Audiencia amplia (+2M)","Límite de frecuencia configurado","Video vertical 9:16 con marca en 2 s","Texto y logo dentro de la zona segura","Música con licencia comercial","Píxel instalado para retargeting futuro"]
+},
+{
+id:"trafico",tab:"Tráfico",kicker:"Mitad del embudo",title:"Tráfico",
+desc:"Envía personas a tu sitio web o app. Optimiza para vistas de página de destino para que lleguen visitas reales, no solo clics.",
+tags:["Embudo: MOFU","CPC","CTR","Vistas de página"],
+kpis:[["Métrica principal","CPC","Costo por clic"],["CTR objetivo","+0,8%","Tasa de clic saludable"],["Presupuesto mínimo","$25K","COP/día por grupo"],["Optimización","LPV","Vistas de página de destino"]],
+alert:"<strong>Instala el píxel de TikTok</strong> antes de lanzar. En Shopify usa la app oficial de TikTok; activa también la API de eventos para no perder datos.",
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Tráfico"],["Destino","Sitio web o app"],["Nombre","[Producto] | Tráfico | Oct-2026"],["Presupuesto","Diario, con optimización de campaña si tienes varios grupos"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Píxel","Seleccionado y con actividad"],["Optimización","Vistas de página de destino (o clics al inicio)"],["Audiencia","Intereses y comportamientos + audiencia amplia"],["Puja","Costo más bajo"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio",items:[["Formato","Video 9:16 de 15–30 s o carrusel"],["URL","Landing específica con UTM"],["UTM","<code>?utm_source=tiktok&utm_medium=paid&utm_campaign=…</code>"],["CTA","Comprar ahora · Más información"]]}],
+steps:[
+["Instala y verifica el píxel","Administración de eventos → Eventos web. Usa TikTok Pixel Helper para confirmar que dispara."],
+["Crea la campaña","<strong>Crear → Tráfico</strong>, destino <strong>sitio web</strong>."],
+["Elige la optimización","<strong>Vistas de página de destino</strong> si el píxel ya funciona; si no, clics."],
+["Configura la audiencia","Empieza amplio. Prueba un grupo con intereses del nicho y otro sin segmentación."],
+["Arma la URL con UTM","Etiqueta todo para validar las sesiones en GA4."],
+["Graba 3 versiones del video","Cambia el gancho en cada una: pregunta, demostración y testimonio."],
+["Agrega CTA y texto","Texto corto (máx. 100 caracteres) y CTA coherente con la landing."],
+["Revisa a las 48 h","CTR bajo = gancho débil. Rebote alto en GA4 = landing que no coincide con el anuncio."]],
+panels:[
+{title:"Eventos clave del píxel",tags:["PageView","ViewContent","AddToCart","InitiateCheckout","CompletePayment","SubmitForm"]},
+{title:"KPIs de tráfico",items:[["CTR:","objetivo mayor a 0,8%."],["CPC:","referencia Colombia $200–$1.500 COP."],["Tasa LPV:","% de clics que cargan la página."],["Tiempo en sitio:","valida la calidad en GA4."]]}],
+tips:[["Landing rápida y móvil","El tráfico de TikTok es 100% móvil. Prueba la página en celular con datos."],["Repite la promesa del video","El primer pantallazo de la landing debe mostrar lo que el video prometió."],["No juzgues antes de 3 días","El algoritmo tarda en encontrar a la audiencia correcta."]],
+checklist:["Píxel instalado y verificado","API de eventos activa","Objetivo Tráfico con destino sitio web","Optimización en vistas de página de destino","URL con UTM completos","Landing probada en celular","3 variaciones de gancho","Seguimiento en GA4 confirmado"]
+},
+{
+id:"video",tab:"Reproducciones de video",kicker:"Parte alta-media del embudo",title:"Reproducciones de video",
+desc:"Maximiza las vistas de tu video. Sirve para contar la historia de la marca y para crear audiencias de personas que vieron el video completo.",
+tags:["Embudo: TOFU-MOFU","CPV","Vistas de 6 s","Retención"],
+kpis:[["Métrica principal","CPV","Costo por vista"],["Vistas de 6 s","+25%","De las impresiones"],["Presupuesto mínimo","$20K","COP/día por grupo"],["Duración","15–34 s","Para historia de marca"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Reproducciones de video"],["Presupuesto","Diario o total"],["Nombre","[Marca] | Video views | Oct-2026"],["Uso","Calentar audiencias para retargeting"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Optimización","Vistas de 2 s, de 6 s (enfocada) o 15 s"],["Audiencia","Amplia o por intereses"],["Puja","Costo más bajo o CPV objetivo"],["Ubicación","Solo TikTok"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio",items:[["Formato","Video 9:16 con historia completa"],["Estructura","Gancho, desarrollo y cierre con marca"],["Subtítulos","Ayudan a retener aunque haya audio"],["Spark Ads","Recomendado para sumar seguidores e interacción"]]}],
+steps:[
+["Crea la campaña","<strong>Crear → Reproducciones de video</strong>."],
+["Elige la optimización","<strong>Vistas de 6 s</strong> para atención real; 15 s si quieres personas muy interesadas."],
+["Configura la audiencia","Amplia o por intereses de la categoría."],
+["Sube el video","Historia de 15–34 s con gancho, desarrollo y marca al final."],
+["Usa Spark Ads","Pauta desde tu cuenta para que las vistas sumen al perfil."],
+["Agrega subtítulos","Usa los automáticos de TikTok o quemados en el video."],
+["Crea la audiencia de espectadores","En Activos → Audiencias: personas que vieron 6 s, 15 s o el 100%."],
+["Usa esa audiencia en Ventas","Retargeting a quienes vieron el video completo."]],
+panels:[
+{title:"Estructura de video que retiene",items:[["0–2 s:","gancho visual o pregunta."],["2–10 s:","problema o situación."],["10–25 s:","producto en acción."],["Final:","marca y CTA."]]},
+{title:"Métricas de retención",items:[["Vistas de 2 s:","detuvo el scroll."],["Vistas de 6 s:","atención real."],["Vistas al 100%:","interés alto."],["Tiempo medio de visualización:","calidad del video."]]}],
+tips:[["La retención manda","Revisa en qué segundo se va la gente y corrige ese punto en la siguiente versión."],["Tendencias con criterio","Usa sonidos y formatos en tendencia solo si encajan con la marca."],["Encadena con Ventas","Esta campaña vale más cuando alimenta retargeting."]],
+checklist:["Objetivo Reproducciones de video","Optimización en vistas de 6 s o 15 s","Video con estructura gancho-desarrollo-cierre","Subtítulos activos","Spark Ads (si aplica)","Audiencia de espectadores creada","Música con licencia comercial","Plan de retargeting definido"]
+},
+{
+id:"comunidad",tab:"Interacción con la comunidad",kicker:"Mitad del embudo · Comunidad",title:"Interacción con la comunidad",
+desc:"Gana seguidores, visitas al perfil e interacciones. Úsalo para crecer la cuenta de TikTok y para darle prueba social a la marca antes de vender.",
+tags:["Embudo: MOFU","Costo por seguidor","Visitas al perfil","Comunidad"],
+kpis:[["Métrica principal","CPF","Costo por seguidor"],["Seguidores/visita","10–20%","Visitas al perfil que siguen"],["Presupuesto mínimo","$20K","COP/día por grupo"],["Requisito","Perfil","Cuenta de TikTok vinculada"]],
+alert:"<strong>Antes de lanzar</strong>, deja el perfil listo: foto, bio clara con propuesta de valor, link en bio y al menos 9 videos publicados. La gente llega al perfil y decide si sigue.",
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Interacción con la comunidad"],["Cuenta","Cuenta de TikTok vinculada al Business Center"],["Nombre","[Marca] | Comunidad | Oct-2026"],["Presupuesto","Diario"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Optimización","Seguidores o visitas al perfil"],["Audiencia","Intereses de la categoría + similares de seguidores"],["Puja","Costo más bajo"],["Ubicación","Solo TikTok"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio",items:[["Formato","Spark Ads (obligatorio en la práctica)"],["Contenido","Los videos orgánicos con más interacción"],["CTA","Seguir · Ver perfil"],["Comentarios","Responde rápido; es parte del anuncio"]]}],
+steps:[
+["Vincula la cuenta de TikTok","En Business Center, conecta la cuenta de la marca y autoriza Spark Ads."],
+["Prepara el perfil","Foto, bio, link y videos fijados que expliquen la marca."],
+["Elige los videos","Toma los orgánicos con mejor tasa de interacción de los últimos 30 días."],
+["Crea la campaña","<strong>Crear → Interacción con la comunidad</strong>."],
+["Elige la optimización","<strong>Seguidores</strong> para crecer la cuenta; <strong>visitas al perfil</strong> para descubrimiento."],
+["Configura la audiencia","Intereses del nicho y, si tienes datos, similares de tus seguidores."],
+["Lanza con Spark Ads","Usa los códigos de autorización o el contenido de la cuenta vinculada."],
+["Gestiona los comentarios","Responde en las primeras horas; las respuestas en video generan más alcance."]],
+panels:[
+{title:"Checklist del perfil",items:[["Foto:","logo o imagen clara."],["Bio:","qué vendes y para quién, en una línea."],["Link en bio:","tienda o WhatsApp."],["Videos fijados:","3 que presenten la marca."]]},
+{title:"KPIs de comunidad",items:[["Costo por seguidor:","referencia Colombia $150–$800 COP."],["Tasa de interacción:","likes + comentarios + compartidos / vistas."],["Visitas al perfil:","interés en la marca."],["Seguidores netos:","crecimiento real de la cuenta."]]}],
+tips:[["Pauta lo que ya funcionó","El mejor anuncio de comunidad es un orgánico con buena respuesta."],["Comunidad antes de vender","Una cuenta con seguidores y comentarios convierte mejor en las campañas de Ventas."],["Responde con videos","Las respuestas en video a comentarios generan contenido nuevo y más alcance."]],
+checklist:["Cuenta de TikTok vinculada al Business Center","Perfil completo: foto, bio, link y videos fijados","Videos orgánicos con buena interacción elegidos","Objetivo Interacción con la comunidad","Optimización en seguidores o visitas al perfil","Spark Ads autorizados","Responsable de responder comentarios","Seguimiento de seguidores netos"]
+},
+{
+id:"leads",tab:"Clientes potenciales",kicker:"Mitad-baja del embudo",title:"Generación de clientes potenciales",
+desc:"Captura datos de contacto con el formulario instantáneo de TikTok o en tu sitio. También puedes llevar a mensajes directos o WhatsApp según la disponibilidad de tu cuenta.",
+tags:["Embudo: MOFU-BOFU","CPL","Formulario","CRM"],
+kpis:[["Métrica principal","CPL","Costo por cliente potencial"],["Conversión","8–15%","Clics que dejan sus datos"],["Presupuesto mínimo","$40K","COP/día por grupo"],["Campos","3–4","Para alta conversión"]],
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Generación de clientes potenciales"],["Tipo","Formulario instantáneo, sitio web o mensajes"],["Nombre","[Servicio] | Leads | Formulario | Oct-2026"],["Presupuesto","Mín. $40.000 COP/día"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Optimización","Formularios enviados"],["Audiencia","Intereses + comportamientos del nicho"],["Exclusiones","Quienes ya enviaron el formulario"],["Puja","Costo más bajo → costo objetivo"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio + formulario",items:[["Oferta","Cotización, asesoría, descuento o contenido"],["Campos","Nombre, teléfono, email + 1 calificadora"],["Privacidad","URL de política de privacidad"],["Agradecimiento","CTA a WhatsApp o sitio web"]]}],
+steps:[
+["Crea la campaña","<strong>Crear → Generación de clientes potenciales</strong>."],
+["Elige el tipo","<strong>Formulario instantáneo</strong> para menos fricción; sitio web si ya tienes una landing que convierte."],
+["Crea el formulario","Biblioteca de formularios → Crear. Imagen de portada, título y oferta."],
+["Agrega campos","Nombre, teléfono y email prellenados + 1 pregunta que filtre."],
+["Política de privacidad","Obligatoria. Menciona el uso de datos para contacto comercial."],
+["Pantalla de agradecimiento","Próximo paso claro y botón a WhatsApp o al sitio."],
+["Conecta el CRM","Integraciones nativas (HubSpot, Zoho) o Zapier/Make. Como respaldo, descarga el CSV."],
+["Envía un lead de prueba","Confirma que llega al CRM y que alguien lo recibe."]],
+panels:[
+{title:"Tipos de formulario",items:[["Más volumen:","datos prellenados, envío rápido."],["Mayor intención:","pantalla de revisión y preguntas calificadoras."]]},
+{title:"Integración con CRM",items:[["HubSpot / Zoho:","conexión nativa."],["Zapier / Make:","envía a cualquier CRM o WhatsApp."],["CSV manual:","para volúmenes pequeños."],["Webhook / API:","integraciones a la medida."]]}],
+tips:[["Video que explique la oferta","Di en los primeros segundos qué recibe la persona al dejar sus datos."],["Contacta en 5 minutos","Un lead de TikTok se enfría rápido."],["Filtra con una pregunta","Presupuesto, ciudad o plazo separan curiosos de compradores."]],
+checklist:["Objetivo Generación de clientes potenciales","Formulario con máximo 4 campos","Política de privacidad añadida","Oferta clara en el video y el formulario","Pantalla de agradecimiento con CTA","CRM conectado y probado","Responsable de seguimiento definido","Lead de prueba recibido"]
+},
+{
+id:"ventas",tab:"Ventas",kicker:"Parte baja del embudo",title:"Ventas",
+desc:"Maximiza compras en tu sitio web, app o TikTok Shop. Es el objetivo orientado a ROAS y necesita píxel con eventos de compra correctos.",
+tags:["Embudo: BOFU","ROAS","CPA","CompletePayment"],
+kpis:[["Métrica principal","ROAS","Retorno sobre la inversión"],["ROAS saludable","2–3×","Según margen del producto"],["Presupuesto mínimo","$80K","COP/día para salir del aprendizaje"],["Conversiones","50","En 7 días por grupo"]],
+alert:"<strong>Requisito:</strong> el evento <code>CompletePayment</code> debe dispararse en la confirmación de compra con <code>value</code> y <code>currency</code>. En Shopify, la app oficial de TikTok lo configura junto con la API de eventos.",
+levels:[
+{lvl:"Nivel 1 · Estratégico",name:"Campaña",items:[["Objetivo","Ventas"],["Tipo","Conversiones en sitio web, o Smart+ para automatizar"],["Catálogo","Conéctalo para anuncios de catálogo (VSA)"],["Nombre","[Producto] | Ventas | Compra | Oct-2026"]]},
+{lvl:"Nivel 2 · Táctico",name:"Grupo de anuncios",items:[["Evento","Completar pago (CompletePayment)"],["Retargeting","Visitantes, carrito, espectadores de video"],["Audiencia fría","Amplia o similar de compradores"],["Puja","Costo más bajo → costo objetivo o ROAS objetivo"]]},
+{lvl:"Nivel 3 · Creativo",name:"Anuncio",items:[["Formato","Video UGC, demostración, unboxing, carrusel"],["Prueba social","Reseñas reales, antes y después"],["Copy","Precio, oferta, envío y urgencia"],["CTA","Comprar ahora · Obtener oferta"]]}],
+extra:[{title:"Estrategia de embudo en TikTok",html:`<div class="tips">
+<div class="tip"><h4>Descubrimiento</h4><p>Alcance o Reproducciones de video a audiencias amplias.</p></div>
+<div class="tip"><h4>Consideración</h4><p>Comunidad y Tráfico a quienes vieron 6 s o más.</p></div>
+<div class="tip"><h4>Conversión</h4><p>Ventas con retargeting de carrito y espectadores de video completo.</p></div></div>`}],
+steps:[
+["Verifica el píxel y la compra","En Administración de eventos, prueba <code>CompletePayment</code> con valor y moneda."],
+["Crea la campaña","<strong>Crear → Ventas</strong>. Elige conversiones en sitio web o Smart+ si tienes datos."],
+["Selecciona el evento","Completar pago. Si hay pocas compras, empieza con Iniciar pago y luego cambia."],
+["Arma grupos por temperatura","(1) Carrito 7 días, (2) espectadores de video y visitantes, (3) audiencia amplia."],
+["Estrategia de puja","Empieza en <strong>costo más bajo</strong>. Con datos, prueba costo objetivo o ROAS objetivo."],
+["Crea videos de venta","UGC de clientes o creadores, producto en uso, precio y oferta en pantalla."],
+["Activa anuncios de catálogo","Si tienes catálogo, muestra los productos que cada persona vio."],
+["Respeta el aprendizaje","Sin cambios grandes en los primeros 3 días. Escala de a 20% cada 2–3 días."]],
+panels:[
+{title:"Estrategias de puja",items:[["Costo más bajo:","para arrancar."],["Costo objetivo:","controla el CPA promedio."],["ROAS objetivo:","ticket variable, retorno mínimo."],["Límite de puja:","avanzado, control por subasta."]]},
+{title:"Creatividades que venden en TikTok",items:[["UGC:","cliente real usando el producto."],["Demostración:","problema → solución en 10 s."],["Unboxing:","empaque y detalle."],["Creadores:","TikTok One para encontrar creadores."]]}],
+tips:[["El ROAS de equilibrio","Calcula 1 ÷ margen antes de juzgar resultados."],["Muchas creatividades","Sube 3–5 videos por grupo; TikTok rota y aprende cuál funciona."],["Escala con calma","Aumentos grandes reinician el aprendizaje."]],
+checklist:["CompletePayment dispara con value y currency","API de eventos activa","Objetivo Ventas y evento de compra seleccionados","Catálogo sincronizado (si aplica)","Audiencias de retargeting creadas","Puja en costo más bajo para el lanzamiento","3–5 videos por grupo con precio y oferta","Checkout probado en celular"]
+}]
+}
+;
+const $ = s => document.querySelector(s);
+const esc = s => s; // content is authored, allows inline <strong>/<code>
+const store = { get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}} };
+
+$('#hero').innerHTML = `<div class="brand" aria-label="Daniela Tirado"><span class="d">daniela</span><span class="t">tirad<svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="13" fill="currentColor"/><path d="M10 7v11l3-3 2 4.5 2-1-2-4.3h4z" fill="var(--hero-bg)"/></svg></span></div>
+  <span class="label">${DATA.eyebrow}</span>
+  <h1>${DATA.headline}</h1>
+  <p>${DATA.intro}</p>
+  <div class="hero-meta">${DATA.chips.map(c=>`<span class="chip">${c}</span>`).join('')}</div>`;
+$('#foot').innerHTML = DATA.footer;
+
+const tabs = $('#tabs'), main = $('#main');
+DATA.objectives.forEach((o,i)=>{
+  const b=document.createElement('button');
+  b.className='tab';b.role='tab';b.id='tab-'+o.id;b.setAttribute('aria-controls',o.id);
+  b.innerHTML=o.tab+(o.isNew?'<span class="new">NUEVO</span>':'');
+  b.onclick=()=>show(o.id,true);
+  tabs.appendChild(b);
+  main.insertAdjacentHTML('beforeend',render(o));
+});
+
+function render(o){
+  let n=0; const sec=(t,html)=>`<div class="block"><div class="block-title"><span class="label">[${String(++n).padStart(2,'0')}]</span><h3>${t}</h3></div>${html}</div>`;
+  let h=`<section class="obj" id="${o.id}" role="tabpanel" aria-labelledby="tab-${o.id}" hidden>
+  <div class="obj-head"><span class="label">${o.kicker}</span><h2>${o.title}</h2><p>${o.desc}</p>
+  <div class="funnel">${o.tags.map(t=>`<span class="chip">${t}</span>`).join('')}</div></div>
+  <div class="kpis">${o.kpis.map(k=>`<div class="kpi"><span class="label">${k[0]}</span><b>${k[1]}</b><span>${k[2]}</span></div>`).join('')}</div>`;
+  if(o.alert) h+=`<div class="alert"><div>${o.alert}</div></div>`;
+  h+=sec(o.levelsTitle||'Estructura de la campaña',`<div class="levels">${o.levels.map(l=>`<div class="level"><span class="label">${l.lvl}</span><h4>${l.name}</h4><dl>${l.items.map(i=>`<div><dt>${i[0]}</dt><dd>${i[1]}</dd></div>`).join('')}</dl></div>`).join('')}</div>`);
+  (o.extra||[]).forEach(x=>{ h+=sec(x.title, x.html); });
+  h+=sec('Paso a paso',`<ol class="steps">${o.steps.map(s=>`<li><div><h4>${s[0]}</h4><p>${s[1]}</p></div></li>`).join('')}</ol>`);
+  if(o.panels) h+=sec(o.panelsTitle||'Referencia rápida',`<div class="two">${o.panels.map(p=>`<div class="panel"><h4>${p.title}</h4>${p.tags?`<div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}${p.items?`<ul>${p.items.map(i=>`<li><b>${i[0]}</b> ${i[1]}</li>`).join('')}</ul>`:''}${p.note?`<p style="margin:0;font-size:15px;color:var(--muted)">${p.note}</p>`:''}</div>`).join('')}</div>`);
+  h+=sec('Buenas prácticas',`<div class="tips">${o.tips.map(t=>`<div class="tip"><h4>${t[0]}</h4><p>${t[1]}</p></div>`).join('')}</div>`);
+  h+=sec('Checklist antes de publicar',`<div class="check" data-obj="${o.id}"><div class="check-head" style="padding-block:12px;border-bottom:1px solid var(--line)"><span class="progress"></span><div style="display:flex;gap:10px;align-items:center"><div class="bar"><i></i></div><button class="reset" type="button">Reiniciar</button></div></div>${o.checklist.map((c,i)=>`<label><input type="checkbox" id="${o.id}-c${i}"><span>${c}</span></label>`).join('')}</div>`);
+  return h+'</section>';
+}
+
+const KEY=DATA.key;
+const saved=store.get(KEY)||{};
+document.querySelectorAll('.check').forEach(box=>{
+  const id=box.dataset.obj, inputs=[...box.querySelectorAll('input')];
+  const upd=()=>{const d=inputs.filter(i=>i.checked).length;box.querySelector('.progress').textContent=`${d} de ${inputs.length} listos`;box.querySelector('.bar i').style.width=(d/inputs.length*100)+'%';saved[id]=inputs.map(i=>i.checked);store.set(KEY,saved);};
+  (saved[id]||[]).forEach((v,i)=>{if(inputs[i])inputs[i].checked=v});
+  inputs.forEach(i=>i.addEventListener('change',upd));
+  box.querySelector('.reset').onclick=()=>{inputs.forEach(i=>i.checked=false);upd();};
+  upd();
+});
+
+function show(id,scroll){
+  DATA.objectives.forEach(o=>{$('#'+o.id).hidden=o.id!==id;$('#tab-'+o.id).setAttribute('aria-selected',o.id===id)});
+  store.set(KEY+'-tab',id);
+  if(scroll) window.scrollTo({top:$('#main').offsetTop-70,behavior:'smooth'});
+}
+const hash=location.hash.slice(1);
+show(DATA.objectives.some(o=>o.id===hash)?hash:(store.get(KEY+'-tab')||DATA.objectives[0].id));
+</script>
+
+</body>
+</html>
